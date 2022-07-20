@@ -1,12 +1,24 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: fahd <fahd@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/07/20 01:09:59 by fahd              #+#    #+#              #
+#    Updated: 2022/07/20 01:10:02 by fahd             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 NAME_BONUS = 
 
-SRC = philo.c
+SRC = philo.c init.c
 		
 SRC_BONUS = 
 
 
-OBJ =  philo.o
+OBJ =  philo.o init.o
 
 OBJ_BONUS = 
 
@@ -15,7 +27,7 @@ all : $(NAME)
 $(NAME):
 	
 	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g -fsanitize=address
-	@echo "suii 👍👍👍"
+	@echo "👍👍👍"
 
 $(NAME_BONUS) : 
 	@gcc -Wall -Wextra -Werror -g $(SRC_BONUS) -o $(NAME_BONUS)
