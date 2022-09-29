@@ -26,7 +26,7 @@ all : $(NAME)
 
 $(NAME):
 	
-	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g -fsanitize=address
+	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g 
 	@echo "👍👍👍"
 
 $(NAME_BONUS) : 

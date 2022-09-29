@@ -23,17 +23,32 @@
 
 typedef struct s_info
 {
-    int nb_philo;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int nb_must_eat;
+    int	nb_philo;
+    int	time_to_die;
+    int	time_to_eat;
+    int	time_to_sleep;
+    int	nb_must_eat;
     
 }   t_info;
 
+typedef struct s_philo
+{
+    int					id;
+    int				nb_eat;
+    long long		last_eat;
+    int				is_eating;
+	long long		start_time;
+    pthread_t				th;
+    pthread_mutex_t	left_fork;
+    pthread_mutex_t	right_fork;
+	pthread_mutex_t	print;
+    t_info *info;
+}   t_philo;
+
 //init
 
-int	all_good(int ac, char **av, t_info *info);
+int	check_args(int ac, char **av, t_info *info);
+t_philo	*init_philos(t_info *info);
 
 
 
