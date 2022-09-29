@@ -101,7 +101,7 @@ int	check_meals(t_philo *philo)
 	i = 0;
 	while (i < philo->info->nb_philo && philo->info->nb_must_eat != -1)
 	{
-		if (philo[i].nb_eat <= philo->info->nb_must_eat)
+		if (philo[i].nb_eat >= philo->info->nb_must_eat)
 		{
 			philo->finished = 1;
 			return (1);
