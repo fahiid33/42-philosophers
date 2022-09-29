@@ -57,7 +57,7 @@ void	*routine(void *philstruct)
 	t_philo	*philo;
 
 	philo = (t_philo *)philstruct;
-	while (1)
+	while (!philo->dead && !philo->finished)
 	{
 		pthread_mutex_lock(&philo->left_fork);
 		print_status(philo, philo->id, "has taken a fork");
@@ -65,30 +65,52 @@ void	*routine(void *philstruct)
 		print_status(philo, philo->id, "has taken a fork");
 		print_status(philo, philo->id, "is eating");
 		philo->last_eat = get_time();
-		// ft_usleep(philo->info->time_to_eat);
-		usleep(philo->info->time_to_eat);
+		ft_usleep(philo->info->time_to_eat);
 		philo->nb_eat++;
 		pthread_mutex_unlock(&philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
 		print_status(philo, philo->id, "is sleeping");
-		// ft_usleep(philo->info->time_to_sleep);
-		usleep(philo->info->time_to_sleep);
+		ft_usleep(philo->info->time_to_sleep);
 		print_status(philo, philo->id, "is thinking");
 	}
-	return ((char *)strdup("WAA"));
+	return (NULL);
 }
 
-// void	print_philos(t_philo *philo)
-// {
-// 	int	i;
+int	is_dead(t_philo *philo)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < philo->info->nb_philo)
-// 	{
-// 		printf("philo %d: %d\n", i, philo[i].id);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < philo->info->nb_philo)
+	{
+		if (get_time() - philo[i].last_eat > philo->info->time_to_die)
+		{
+			print_status(philo, philo[i].id, "died");
+			philo->dead = 1;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_meals(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->info->nb_philo && philo->info->nb_must_eat != -1)
+	{
+		if (philo[i].nb_eat > philo->info->nb_must_eat)
+		{
+			philo->finished = 1;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 
 void	start(t_info *info)
 {
@@ -98,14 +120,19 @@ void	start(t_info *info)
 	i = 0;
 	philo = init_philos(info);
 	pthread_mutex_init(&philo->print, NULL);
+	philo->dead = 0;
+	philo->finished = 0;
 	philo->start_time = get_time();
 	while (i < info->nb_philo)
 	{
 		pthread_create(&philo[i].th, NULL, &routine, &philo[i]);
+		pthread_join(philo[i].th, NULL);
 		// pthread_detach(philo[i].th);
-		usleep(200);
 		i++;
+		usleep(100);
 	}
+	if (is_dead(philo) || check_meals(philo))
+		return ;
 }
 
 int main(int ac, char **av)

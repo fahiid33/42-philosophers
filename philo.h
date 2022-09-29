@@ -38,6 +38,8 @@ typedef struct s_philo
     long long		last_eat;
     int				is_eating;
 	long long		start_time;
+    int             dead;
+    int             finished;
     pthread_t				th;
     pthread_mutex_t	left_fork;
     pthread_mutex_t	right_fork;
