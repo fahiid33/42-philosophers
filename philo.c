@@ -83,7 +83,7 @@ int	is_dead(t_philo *philo)
 	i = 0;
 	while (i < philo->info->nb_philo)
 	{
-		if (get_time() - philo[i].last_eat > philo->info->time_to_die)
+		if (get_time() - philo[i].last_eat >= philo->info->time_to_die)
 		{
 			print_status(philo, philo[i].id, "died");
 			philo->dead = 1;
@@ -101,7 +101,7 @@ int	check_meals(t_philo *philo)
 	i = 0;
 	while (i < philo->info->nb_philo && philo->info->nb_must_eat != -1)
 	{
-		if (philo[i].nb_eat > philo->info->nb_must_eat)
+		if (philo[i].nb_eat <= philo->info->nb_must_eat)
 		{
 			philo->finished = 1;
 			return (1);
@@ -126,7 +126,7 @@ void	start(t_info *info)
 	while (i < info->nb_philo)
 	{
 		pthread_create(&philo[i].th, NULL, &routine, &philo[i]);
-		pthread_join(philo[i].th, NULL);
+		// pthread_join(philo[i].th, NULL);
 		// pthread_detach(philo[i].th);
 		i++;
 		usleep(100);
