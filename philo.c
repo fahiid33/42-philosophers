@@ -39,12 +39,13 @@ unsigned int	get_time(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	dormir(unsigned int end_time)
+void	dormir(unsigned int time)
 {
-	unsigned int sleep_time;
-	
-	sleep_time = end_time * 1000;
-	usleep(sleep_time);
+	unsigned int	start;
+
+	start = get_time();
+	while (get_time() - start < time)
+		usleep(time / 100);
 }
 
 void	print_status(t_philo *philo, int id, char *state)
@@ -61,7 +62,7 @@ void	*routine(void *philstruct)
 	t_philo	*philo;
 
 	philo = (t_philo *)philstruct;
-	while (!philo->dead || !philo->finished)
+	while (!philo->dead && !philo->finished)
 	{
 		pthread_mutex_lock(&(philo->left_fork));
 		print_status(philo, philo->id, "has taken fork");
@@ -101,17 +102,22 @@ int	is_dead(t_philo *philo)
 int	check_meals(t_philo *philo)
 {
 	int	i;
+	int count;
 
+	count = 0;
 	i = 0;
 	while (i < philo->info->nb_philo && philo->info->nb_must_eat != -1)
 	{
 		if (philo[i].nb_eat >= philo->info->nb_must_eat)
 		{
 			philo->finished = 1;
-			return (1);
+			count++;
 		}
+		if (count == philo->info->nb_philo)
+			return (1);
 		i++;
 	}
+
 	return (0);
 }
 
