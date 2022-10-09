@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fahd <fahd@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fstitou <fstitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 00:55:59 by fahd              #+#    #+#             */
-/*   Updated: 2022/07/20 00:57:50 by fahd             ###   ########.fr       */
+/*   Updated: 2022/10/09 02:07:52 by fstitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ t_philo	*init_philos(t_info *info)
 		philo[i].is_eating = 0;
 		pthread_mutex_init(&philo[i].left_fork, NULL);
 		if (i == info->nb_philo - 1)
-			philo[i].right_fork = philo[0].left_fork;
+			philo[i].right_fork = &philo[0].left_fork;
 		else
-			philo[i].right_fork = philo[i + 1].left_fork;
+			philo[i].right_fork = &philo[i + 1].left_fork;
 		i++;
 	}
 	return (philo);
