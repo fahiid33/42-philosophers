@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fahd <fahd@student.42.fr>                  +#+  +:+       +#+         #
+#    By: fstitou <fstitou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 01:09:59 by fahd              #+#    #+#              #
-#    Updated: 2022/07/20 01:10:02 by fahd             ###   ########.fr        #
+#    Updated: 2022/10/12 22:05:26 by fstitou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all : $(NAME)
 
 $(NAME):
 	
-	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g 
+	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g -fsanitize=thread	
 	@echo "👍👍👍"
 
 $(NAME_BONUS) : 

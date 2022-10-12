@@ -6,7 +6,7 @@
 /*   By: fstitou <fstitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 00:55:59 by fahd              #+#    #+#             */
-/*   Updated: 2022/10/09 02:07:52 by fstitou          ###   ########.fr       */
+/*   Updated: 2022/10/12 21:52:03 by fstitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_args(int ac, char **av, t_info *info)
 			info->nb_must_eat = atoi(av[5]);
 		else
 			info->nb_must_eat = -1;
-		if (info->nb_philo < 2 || info->nb_philo > 200 || info->time_to_die < 60
+		if ( info->nb_philo > 200 || info->time_to_die < 60
 			|| info->time_to_eat < 60 || info->time_to_sleep < 60
 			|| info->nb_must_eat < -1)
 			return (0);
@@ -67,8 +67,11 @@ t_philo	*init_philos(t_info *info)
 		philo[i].info = info;
 		philo[i].last_eat = 0;
 		philo[i].nb_eat = 0;
-		philo[i].is_eating = 0;
 		pthread_mutex_init(&philo[i].left_fork, NULL);
+		pthread_mutex_init(&(info->print), NULL);
+		pthread_mutex_init(&(info->is_eating), NULL);
+		// pthread_mutex_init(&(info->dead_flag), NULL);
+		// pthread_mutex_init(&(info->finish_flag), NULL);
 		if (i == info->nb_philo - 1)
 			philo[i].right_fork = &philo[0].left_fork;
 		else
