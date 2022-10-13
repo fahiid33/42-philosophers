@@ -93,9 +93,6 @@ void	*routine(void *philstruct)
 int	is_dead(t_philo *philo)
 {
 	int	i;
-	int j;
-
-	j = 0;
 	i = 0;
 	
 	while (i < philo->info->nb_philo)

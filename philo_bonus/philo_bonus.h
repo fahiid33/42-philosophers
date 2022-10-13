@@ -2,6 +2,7 @@
 # define PHILO_BONUS_H
 
 # include <pthread.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
@@ -20,7 +21,7 @@ typedef struct s_info
     int	nb_must_eat;
 	unsigned int  	start_time;
 	sem_t   print;
-   sem_t	is_eating;
+    sem_t	is_eating;
     pthread_mutex_t dead_flag;
     pthread_mutex_t finish_flag;
 }   t_info;
@@ -28,6 +29,7 @@ typedef struct s_info
 typedef struct s_philo
 {
     int					id;
+    pid_t				pid;
     int			nb_eat;
    	int 			last_eat;
     atomic_int             dead;

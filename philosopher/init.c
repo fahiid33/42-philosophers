@@ -70,8 +70,6 @@ t_philo	*init_philos(t_info *info)
 		pthread_mutex_init(&philo[i].left_fork, NULL);
 		pthread_mutex_init(&(info->print), NULL);
 		pthread_mutex_init(&(info->is_eating), NULL);
-		// pthread_mutex_init(&(info->dead_flag), NULL);
-		// pthread_mutex_init(&(info->finish_flag), NULL);
 		if (i == info->nb_philo - 1)
 			philo[i].right_fork = &philo[0].left_fork;
 		else

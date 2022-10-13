@@ -50,8 +50,19 @@ t_philo *init_philos(t_info *info)
     philo = malloc(sizeof(t_philo) * info->nb_philo);
     if (!philo)
         return (NULL);
-    // while (i < info->nb_philo)
-    // {
-
-    // }
+    while (i < info->nb_philo)
+	{
+		philo[i].id = i + 1;
+		philo[i].info = info;
+		philo[i].last_eat = 0;
+		philo[i].nb_eat = 0;
+        sem_unlink("forks");
+        sem_open("forks", O_CREAT, 0644, info->nb_philo);
+        sem_unlink("print");
+        sem_open("print", O_CREAT, 0644, 1);
+        sem_unlink("eating");
+        sem_open("eating", O_CREAT, 0644, 1);
+        i++;
+    }
+    return (philo);
 }
