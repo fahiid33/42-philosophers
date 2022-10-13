@@ -8,6 +8,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <stdlib.h>
 # include <stdatomic.h>
 # include <semaphore.h>

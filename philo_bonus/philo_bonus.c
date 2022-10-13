@@ -67,7 +67,7 @@ void	*routine(t_philo *philo)
 		print_status(philo, philo->id, "is eating");
 		eat_times(philo);
         if (philo->nb_eat == philo->info->nb_must_eat)
-            break ;
+            exit(0);
 		dormir(philo->info->time_to_eat);
 		sem_post(philo->forks);
 		sem_post(philo->forks);
@@ -98,6 +98,21 @@ void    *check_death(void *philstruct)
     return (NULL);
 }
 
+void	wait_and_kill(t_philo *philo)
+{
+	int	i;
+	int	status;
+
+	while (waitpid(-1, &status, 0) > 0)
+		;
+	i = 0;
+	while (i < philo->info->nb_philo)
+	{
+		kill(philo[i].pid, SIGKILL);
+		i++;
+	}
+}
+
 void	start(t_info *info)
 {
 	t_philo *philo;
@@ -112,15 +127,15 @@ void	start(t_info *info)
         philo[i].pid = fork();
         if (philo[i].pid == 0)
         {
-            // printf("kmdksck\n");
 		    if (pthread_create(&philo[i].th, NULL, &check_death, &philo[i]) != 0)
 			    ft_error(3);
 		    routine(&philo[i]);
-            // exit(1);
+            exit(1);
         }
         i++;
 		usleep(40);
 	}
+	wait_and_kill(philo);
 	return ;
 }
 
