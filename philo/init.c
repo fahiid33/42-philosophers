@@ -6,7 +6,7 @@
 /*   By: fstitou <fstitou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 00:55:59 by fahd              #+#    #+#             */
-/*   Updated: 2022/10/12 21:52:03 by fstitou          ###   ########.fr       */
+/*   Updated: 2022/10/15 02:45:50 by fstitou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_arg(char **av)
 	return (1);
 }
 
-int	check_args(int ac, char **av, t_info *info)
+int	init_args(int ac, char **av, t_info *info)
 {
 	if (check_arg(av))
 	{
@@ -44,7 +44,7 @@ int	check_args(int ac, char **av, t_info *info)
 			info->nb_must_eat = atoi(av[5]);
 		else
 			info->nb_must_eat = -1;
-		if ( info->nb_philo > 200 || info->time_to_die < 60
+		if (info->nb_philo > 200 || info->time_to_die < 60
 			|| info->time_to_eat < 60 || info->time_to_sleep < 60
 			|| info->nb_must_eat < -1)
 			return (0);
@@ -57,6 +57,7 @@ t_philo	*init_philos(t_info *info)
 {
 	t_philo	*philo;
 	int		i;
+
 	philo = malloc(sizeof(t_philo) * info->nb_philo);
 	if (!philo)
 		return (NULL);
@@ -65,7 +66,7 @@ t_philo	*init_philos(t_info *info)
 	{
 		philo[i].id = i + 1;
 		philo[i].info = info;
-		philo[i].last_eat = 0;
+		philo[i].last_eat = get_time();
 		philo[i].nb_eat = 0;
 		pthread_mutex_init(&philo[i].left_fork, NULL);
 		pthread_mutex_init(&(info->print), NULL);

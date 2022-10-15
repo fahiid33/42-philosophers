@@ -1,7 +1,7 @@
 NAME = philo_bonus
 NAME_BONUS = 
 
-SRC = philo_bonus.c init_bonus.c
+SRC = philo_bonus.c init_bonus.c routine_bonus.c tools_bonus.c
 		
 SRC_BONUS = 
 
@@ -14,7 +14,7 @@ all : $(NAME)
 
 $(NAME):
 	
-	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g 	
+	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g
 	@echo "👍👍👍"
 
 $(NAME_BONUS) : 

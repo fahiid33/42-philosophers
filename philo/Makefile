@@ -6,19 +6,19 @@
 #    By: fstitou <fstitou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 01:09:59 by fahd              #+#    #+#              #
-#    Updated: 2022/10/12 22:05:26 by fstitou          ###   ########.fr        #
+#    Updated: 2022/10/15 04:00:01 by fstitou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 NAME_BONUS = 
 
-SRC = philo.c init.c
+SRC = philo.c init.c routine.c tools.c
 		
 SRC_BONUS = 
 
 
-OBJ =  philo.o init.o
+OBJ =  philo.o init.o routine.o tools.o
 
 OBJ_BONUS = 
 
@@ -26,7 +26,7 @@ all : $(NAME)
 
 $(NAME):
 	
-	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g 	
+	@gcc -Wall -Wextra -Werror $(SRC) -o $(NAME) -pthread -g -fsanitize=thread
 	@echo "👍👍👍"
 
 $(NAME_BONUS) : 
